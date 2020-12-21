@@ -2,13 +2,14 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import {createFact} from './API';
 
-const AddFactForm = ( location ) => {
+const AddFactForm = ({location}) => {
   const {register , handleSubmit } = useForm();
-
   const onSubmit = async (data) => {
     try {
+
       data.latitude = location.latitude;
-      data.longiture = location.longitude;
+      data.longitude = location.longitude;
+      console.log(data);
       const created = createFact(data);
       console.log(created);
     } catch (error) {
@@ -22,8 +23,8 @@ const AddFactForm = ( location ) => {
         <input name="name" required ref={register}/>
       </div>
       <div className="input-row">
-          <label htmlFor="description">Description</label>
-          <textarea name="description" rows={3} required ref={register}></textarea>
+          <label htmlFor="facts">Description</label>
+          <textarea name="facts" rows={3} required ref={register}></textarea>
       </div>
       <div className="input-row">
       <button>Save</button>

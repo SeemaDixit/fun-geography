@@ -94,7 +94,7 @@ const App = () => {
                   onClose={() => setShowPopup({})}
                   anchor="top" >
                   <div className="popup">
-                      <AddFactForm />
+                      <AddFactForm location={addFactLocation}/>
                   </div>
                 </Popup>
                 </>
