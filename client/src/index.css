@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.marker {
+  with: 24px;
+  height: 24px;
+}
+.popup {
+  max-width: 400px;
+  padding: 1rem;
+}
+.fact-form .input-row {
+  padding: 10px 0;
+}
+.fact-form label, .fact-form button {
+  margin-right: 10px;
+  margin-bottom: 5px;
+  display: block;
+  width: 100%;
+}
