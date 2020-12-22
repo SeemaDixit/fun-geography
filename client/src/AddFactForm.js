@@ -1,23 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import {createFact} from './API';
 
-const AddFactForm = ({location}) => {
+const AddFactForm = ({location, onClose }) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const {register , handleSubmit } = useForm();
   const onSubmit = async (data) => {
     try {
-
+      setLoading(true);
       data.latitude = location.latitude;
       data.longitude = location.longitude;
-      console.log(data);
       const created = createFact(data);
-      console.log(created);
+      onClose();
     } catch (error) {
-      console.log(error);
+      setError(error.message);
+      setLoading(false);
     }
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="fact-form">
+      { error ? <h3 className="error">{error}</h3> : null }
       <div className="input-row">
         <label htmlFor="name">Name</label>
         <input name="name" required ref={register}/>
@@ -27,7 +30,7 @@ const AddFactForm = ({location}) => {
           <textarea name="facts" rows={3} required ref={register}></textarea>
       </div>
       <div className="input-row">
-      <button>Save</button>
+      <button disabled={loading}>{loading ? 'Loading..' : 'Save'}</button>
       </div>
     </form>
   );

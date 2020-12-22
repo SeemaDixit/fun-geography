@@ -17,13 +17,13 @@ const App = () => {
     zoom: 3
   });
 
-  useEffect(() => {
-    (async () =>{
-      const factList= await listFacts();
-      setFactList(factList);
-      console.log(factList);
-    })();
+  const getFactList = async () => {
+    const factList= await listFacts();
+    setFactList(factList);
+  };
 
+  useEffect(() => {
+    getFactList();
   }, []);
 
   const showAddMarkerPopup = (event) => {
@@ -31,6 +31,9 @@ const App = () => {
     setAddFactLocation({
       latitude,
       longitude,
+    });
+    setShowPopup({
+      showPopup, 'new':true
     });
   }
 
@@ -45,9 +48,8 @@ const App = () => {
 
       {
           factList.map(entry =>(
-            <>
+            <React.Fragment key={entry._id}>
               <Marker
-              key={entry._id}
               latitude={entry.latitude}
               longitude={entry.longitude}
               offsetLeft={-12}
@@ -74,7 +76,7 @@ const App = () => {
               ) : null
             }
             {
-              addFactLocation ? (
+              addFactLocation && showPopup['new'] ? (
                 <>
                 <Marker
                 latitude={addFactLocation.latitude}
@@ -94,13 +96,19 @@ const App = () => {
                   onClose={() => setShowPopup({})}
                   anchor="top" >
                   <div className="popup">
-                      <AddFactForm location={addFactLocation}/>
+                      <AddFactForm
+                      location={addFactLocation}
+                      onClose = {() => {
+                          setAddFactLocation(null);
+                          getFactList();
+                      }}
+                      />
                   </div>
                 </Popup>
                 </>
               ): null
             }
-            </>
+            </React.Fragment>
           ))
       }
     </ReactMapGL>
