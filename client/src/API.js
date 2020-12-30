@@ -5,13 +5,23 @@ export  async function listFacts() {
   return response.json();
 }
 export  async function createFact(fact) {
+  const apiKey = fact.apiKey;
+  delete fact.apiKey;
   const response = await fetch(`${API_URL}/api/facts`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
+      'X-API-KEY': apiKey
     },
     body: JSON.stringify(fact),
   });
 
-  return response.json();
+  const json = await response.json();
+  console.log(json);
+  if(response.ok) {
+    return json;
+  }
+  const error = new Error(json.message);
+  error.response = json;
+  throw error;
 }

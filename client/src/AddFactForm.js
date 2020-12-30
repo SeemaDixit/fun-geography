@@ -11,7 +11,7 @@ const AddFactForm = ({location, onClose }) => {
       setLoading(true);
       data.latitude = location.latitude;
       data.longitude = location.longitude;
-      const created = createFact(data);
+      await createFact(data);
       onClose();
     } catch (error) {
       setError(error.message);
@@ -21,6 +21,10 @@ const AddFactForm = ({location, onClose }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="fact-form">
       { error ? <h3 className="error">{error}</h3> : null }
+      <div className="input-row">
+        <label htmlFor="apiKey">API Key</label>
+        <input name="apiKey" type="password" required ref={register}/>
+      </div>
       <div className="input-row">
         <label htmlFor="name">Name</label>
         <input name="name" required ref={register}/>
