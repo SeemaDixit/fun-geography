@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "name": "fun-geography-api",
+  "builds": [
+    {
+      "src": "src/index.js",
+      "use": "@now/node-server"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "src/index.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Credentials": "true"
+      },
+      "continue": true
+    }
+  ],
+  "alias": [
+    "fun-geography-api"
+  ],
+  "env": {
+    "NODE_ENV" : "production",
+    "PORT": "1337",
+    "DATABASE_URL": "@fun-geography-db",
+    "CORS_ORIGIN": "https://fun-geography.vercel.app",
+    "API_KEY": "@fun-geography-api-key"
+  }
+}

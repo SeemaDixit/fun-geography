@@ -75,41 +75,41 @@ const App = () => {
                 </Popup>
               ) : null
             }
-            {
-              addFactLocation && showPopup['new'] ? (
-                <>
-                <Marker
-                latitude={addFactLocation.latitude}
-                longitude={addFactLocation.longitude}
-                offsetLeft={-12}
-                offsetTop={-24}>
-                <div>
-                  <img src="https://i.imgur.com/y0G5YTX.png" alt="marker" className="marker" />
-                </div>
-                </Marker>
-                <Popup
-                latitude={addFactLocation.latitude}
-                longitude={addFactLocation.longitude}
-                dynamicPosition = {true}
-                  closeButton={true}
-                  closeOnClick={false}
-                  onClose={() => setShowPopup({})}
-                  anchor="top" >
-                  <div className="popup">
-                      <AddFactForm
-                      location={addFactLocation}
-                      onClose = {() => {
-                          setAddFactLocation(null);
-                          getFactList();
-                      }}
-                      />
-                  </div>
-                </Popup>
-                </>
-              ): null
-            }
             </React.Fragment>
           ))
+      }
+      {
+        addFactLocation && showPopup['new'] ? (
+          <>
+          <Marker
+          latitude={addFactLocation.latitude}
+          longitude={addFactLocation.longitude}
+          offsetLeft={-12}
+          offsetTop={-24}>
+          <div>
+            <img src="https://i.imgur.com/y0G5YTX.png" alt="marker" className="marker" />
+          </div>
+          </Marker>
+          <Popup
+          latitude={addFactLocation.latitude}
+          longitude={addFactLocation.longitude}
+          dynamicPosition = {true}
+            closeButton={true}
+            closeOnClick={false}
+            onClose={() => setShowPopup({})}
+            anchor="top" >
+            <div className="popup">
+                <AddFactForm
+                location={addFactLocation}
+                onClose = {() => {
+                    setAddFactLocation(null);
+                    getFactList();
+                }}
+                />
+            </div>
+          </Popup>
+          </>
+        ): null
       }
     </ReactMapGL>
   );
